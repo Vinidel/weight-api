@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/vinidel/weight-api/db"
 	"github.com/vinidel/weight-api/app"
+	"github.com/gorilla/handlers"
 )
 
 func main() {
@@ -26,5 +27,5 @@ func main() {
 	app.SetupRouter()
 
 	// log.Fatal(http.ListenAndServe(":8080", app.Router))
-	log.Fatal(http.ListenAndServe(":" + port, app.Router))
+	log.Fatal(http.ListenAndServe(":" + port, handlers.CORS()(app.Router)))
 }
