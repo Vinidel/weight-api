@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/vinidel/weight-api/db"
@@ -10,7 +11,9 @@ import (
 
 func main() {
 	database, err := db.SetupDB()
+	port := os.Getenv("PORT")
 	
+	log.Println("This is the port", port)
 	if err != nil {
 		log.Fatal("Database connection failed: %s", err.Error())
 	}
@@ -22,5 +25,6 @@ func main() {
 
 	app.SetupRouter()
 
-	log.Fatal(http.ListenAndServe(":8080", app.Router))
+	// log.Fatal(http.ListenAndServe(":8080", app.Router))
+	log.Fatal(http.ListenAndServe(":" + port, app.Router))
 }
