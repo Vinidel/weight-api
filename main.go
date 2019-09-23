@@ -15,7 +15,7 @@ func main() {
 	port := os.Getenv("PORT")
 	router :=  mux.NewRouter().StrictSlash(true)
 	cors := handlers.CORS(
-		handlers.AllowedHeaders([]string{"content-type"}),
+		handlers.AllowedHeaders([]string{"content-type", "Access-Control-Allow-Origin", "Access-Control-Request-Method"}),
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowCredentials(),
 	)
