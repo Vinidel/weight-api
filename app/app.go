@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"	
-	"time"
 	"context"
 	"log"
 )
@@ -31,6 +30,7 @@ func (app *App) SetupRouter() {
 	app.Router.Methods("POST").Path("/api/weights").HandlerFunc(app.postWeight)
 }
 
+// Testing connection
 func (app *App) pong(w http.ResponseWriter, r *http.Request) {
 	message := &Pong{Message: "pong"}
 	w.Header().Set("Content-Type", "application/json")
@@ -42,8 +42,6 @@ func (app *App) getWeightHistory(w http.ResponseWriter, r *http.Request) {
 	
 	// Pass these options to the Find method
 	findOptions := options.Find()
-
-	// Here's an array in which you can store the decoded documents
 	var results []*models.Weight
 
 	// Passing bson.D{{}} as the filter matches all documents in the collection
@@ -85,7 +83,7 @@ func (app *App) postWeight(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var weight models.Weight
 	_ = json.NewDecoder(r.Body).Decode(&weight)
-	weight.CreatedAt = time.Now()
+	log.Println("This is the createdAt ", weight.CreatedAt)
 	collection := app.DBClient.Database("weight-api").Collection("weights")
 
 	result, err := collection.InsertOne(context.TODO(), weight)

@@ -9,12 +9,3 @@ type Weight struct {
 	Kilograms float32  `json:"kilograms"`
 	CreatedAt time.Time `json:"createdAt"`
 }
-
-
-func (w *Weight) Save(weight Weight) {
-	//TODO
-}
-
-func (w *Weight) GetWeights() {
-	//TODO
-}
