@@ -22,6 +22,10 @@ func main() {
 
 	router.Use(cors)
 
+	router.Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+	})
+
 	log.Println("This is the port", port)
 	if err != nil {
 		log.Fatal("Database connection failed: %s", err.Error())
