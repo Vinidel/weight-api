@@ -83,7 +83,6 @@ func (app *App) postWeight(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var weight models.Weight
 	_ = json.NewDecoder(r.Body).Decode(&weight)
-	log.Println("This is the createdAt ", weight.CreatedAt)
 	collection := app.DBClient.Database("weight-api").Collection("weights")
 
 	result, err := collection.InsertOne(context.TODO(), weight)
